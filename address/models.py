@@ -151,7 +151,7 @@ def to_python(value):
 ##
 @python_2_unicode_compatible
 class Country(models.Model):
-    name = models.CharField(max_length=40, unique=True, blank=True)
+    name = models.CharField(max_length=48, unique=True, blank=True)
     code = models.CharField(max_length=2, blank=True) # not unique as there are duplicates (IT)
 
     class Meta:
@@ -167,12 +167,12 @@ class Country(models.Model):
 @python_2_unicode_compatible
 class State(models.Model):
     name = models.CharField(max_length=165, blank=True)
-    code = models.CharField(max_length=3, blank=True)
+    code = models.CharField(max_length=16, blank=True)
     country = models.ForeignKey(Country, related_name='states')
 
     class Meta:
-        unique_together = ('name', 'country')
-        ordering = ('country', 'name')
+        unique_together = ('name', 'country', 'code')
+        ordering = ('country', 'name',)
 
     def __str__(self):
         txt = self.to_str()
