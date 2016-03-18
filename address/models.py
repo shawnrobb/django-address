@@ -186,7 +186,7 @@ class State(models.Model):
         return '%s'%(self.name or self.code)
 
 ##
-## A locality (suburb).
+## A locality (city).
 ##
 @python_2_unicode_compatible
 class Locality(models.Model):
@@ -205,8 +205,8 @@ class Locality(models.Model):
         if txt and state:
             txt += ', '
         txt += state
-        if self.postal_code:
-            txt += ' %s'%self.postal_code
+        # if self.postal_code:
+        #     txt += ' %s'%self.postal_code
         cntry = '%s'%(self.state.country if self.state and self.state.country else '')
         if cntry:
             txt += ', %s'%cntry
@@ -225,6 +225,7 @@ class Address(models.Model):
     formatted = models.CharField(max_length=200, blank=True)
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
+    postal_code = models.CharField(max_length=10, blank=True)
 
     class Meta:
         verbose_name_plural = 'Addresses'
@@ -272,6 +273,7 @@ class Address(models.Model):
                     ad['country'] = self.locality.state.country.name
                     ad['country_code'] = self.locality.state.country.code
         return ad
+
 
 class AddressDescriptor(ForwardManyToOneDescriptor):
 
