@@ -20,12 +20,16 @@ class CountryAdmin(admin.ModelAdmin):
 @admin.register(State)
 class StateAdmin(admin.ModelAdmin):
     search_fields = ('name', 'code')
+    raw_id_fields = ('country',)
 
 @admin.register(Locality)
 class LocalityAdmin(admin.ModelAdmin):
     search_fields = ('name', 'postal_code')
+    raw_id_fields = ('state',)
+
 
 @admin.register(Address)
 class AddressAdmin(admin.ModelAdmin):
     search_fields = ('name',)
+    raw_id_fields = ('locality',)
     list_filter = (UnidentifiedListFilter,)
