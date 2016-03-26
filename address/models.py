@@ -219,7 +219,7 @@ class Locality(models.Model):
 @python_2_unicode_compatible
 class Address(models.Model):
     street_number = models.CharField(max_length=20, blank=True)
-    route = models.CharField(max_length=100, blank=True)
+    route = models.CharField(max_length=255, blank=True)
     locality = models.ForeignKey(Locality, related_name='addresses', blank=True, null=True)
     raw = models.CharField(max_length=200)
     formatted = models.CharField(max_length=200, blank=True)
